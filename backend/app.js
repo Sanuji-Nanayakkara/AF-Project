@@ -27,6 +27,17 @@ app.use('/team', team);
 const staff = require('./routers/staff.js');
 app.use('/staff', staff);
 
+const deadLine = require('./routers/deadLine.js');
+app.use('/deadLine', deadLine);
+
+const markingSchemes = require('./routers/markingSchemes');
+app.use('/markingSchemes', markingSchemes);
+
+const user = require('./routers/user.js');
+app.use('/user', user);
+
+
+
 app.listen(port,() =>{
     console.log(`Server is running on port: ${port}`);
 });
