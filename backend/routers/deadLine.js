@@ -7,11 +7,12 @@ router.route('/addDeadLine').post((req,res) => {
    
         const title  = req.body.title;
         const deadLineDateTime  = req.body.deadLineDateTime;
+        const submissionType  = req.body.submissionType;
         const description  = req.body.description;
         const FileName  = req.body.FileName;
         const status = "Active";
 
-        const saveDeadLine = new deadline_model({title, deadLineDateTime, description, FileName, status});
+        const saveDeadLine = new deadline_model({title, deadLineDateTime, description, FileName, status,submissionType});
         
         saveDeadLine.save()
         .then(() => {            
@@ -35,6 +36,14 @@ router.route("/oneDeadLine/:id").get((req,res) => {
 
 router.route("/AllDeadLine").get((req,res) => {
     deadline_model.find().then((DeadLine) => {
+        res.json(DeadLine);
+    }).catch((err) => {
+        console.log(err);
+    });
+});   
+
+router.route("/OnlyPresentationDeadLine").get((req,res) => {
+    deadline_model.find({submissionType:'Presentation'}).then((DeadLine) => {
         res.json(DeadLine);
     }).catch((err) => {
         console.log(err);

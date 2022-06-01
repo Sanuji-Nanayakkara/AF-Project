@@ -1,6 +1,7 @@
 
 
 const router = require('express').Router();
+const  ObjectID = require('mongodb').ObjectId;
 let staff_model = require('../models/staff');
 let user_model = require('../models/user');
 let group_panel_model = require('../models/group_panel');
@@ -55,6 +56,42 @@ router.route("/allStaff").get((req,res) => {
     });
 });   
 
+router.route("/allTeamForPanel/:username").get((req,res) => {
+    group_panel_model.find({$or: [{memberOne:  req.params.username },{memberTwo:  req.params.username },{memberThree:  req.params.username }]}).then((staff) => {
+        res.json(staff);
+    }).catch((err) => {
+        console.log(err);
+    });
+});  
+
+router.route("/alltSupervisorForSelectCategory/:specialize").get((req,res) => {
+    staff_model.find({Specialize: req.params.specialize , userType : 'Supervisor'}).then((staff) => {
+        res.json(staff);
+    }).catch((err) => {
+        console.log(err);
+    });
+});  
+
+router.route('/getSupervisor').post((req, res, next) => {    
+
+    staff_model.find({_id:new  ObjectID( req.body.id_num)})
+    .then((staff) => {
+        res.json(staff);
+    })
+    .catch(err => res.status(400). res.json({
+        message:false,
+    }))    
+                    
+});
+
+
+router.route("/allCoSupervisorForSelectCategory/:specialize").get((req,res) => {
+    staff_model.find({Specialize: req.params.specialize , userType : 'Co-Supervisor'}).then((staff) => {
+        res.json(staff);
+    }).catch((err) => {
+        console.log(err);
+    });
+});   
 
 router.route('/panelCreate').post((req,res) => {
     

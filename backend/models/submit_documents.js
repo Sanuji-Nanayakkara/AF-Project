@@ -1,27 +1,28 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const deadLineRegSchema = new Schema({
-    title: {
+const userSubmitDocuments = new Schema({
+    groupNumber: {
         type: String,
         required: true,
     },
 
-    deadLineDateTime: {
+    supervisor: {
         type: String,
         required: true,
     },
 
-    description: {
+    coSupervisor: {
         type: String,
         required: true,
     },
 
-    FileName: {
+    file: {
         type: String,
+        required: true,
     },
-
-    submissionType: {
+    
+    submissionID: {
         type: String,
         required: true,
     },
@@ -30,7 +31,11 @@ const deadLineRegSchema = new Schema({
         type: String,
         required: true,
     },
-  
+
+    submitDateType: {
+        type: String,
+        required: true,
+    },
 });
-const deadLine_Schema = mongoose.model('deadLine', deadLineRegSchema);
-module.exports = deadLine_Schema;
+const user_SubmitDocuments = mongoose.model('submit_documents', userSubmitDocuments);
+module.exports = user_SubmitDocuments;

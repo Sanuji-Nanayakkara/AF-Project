@@ -36,6 +36,12 @@ app.use('/markingSchemes', markingSchemes);
 const user = require('./routers/user.js');
 app.use('/user', user);
 
+const marks = require('./routers/marks.js');
+app.use('/marks', marks);
+
+const submit_document = require('./routers/submit_document.js');
+app.use('/submit_document', submit_document);
+
 
 
 app.listen(port,() =>{
