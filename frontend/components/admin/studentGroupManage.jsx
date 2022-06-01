@@ -99,6 +99,9 @@ function StudentGroupManage() {
       })
   }
 
+  function viewTopic(id){
+    window.location.href = "/admin/AdminViewTeam?id="+id; 
+  }
   return (
     <div >
        <HomePageNav/>
@@ -253,14 +256,16 @@ function StudentGroupManage() {
                                       <td >{team.mem_two_regNum}</td>
                                       <td >{team.mem_three_name}</td>
                                       <td >{team.mem_four_name}</td>
-                                      <td >Research Area</td>
-                                      <td >Research Topic</td>
+                                      <td >{team.researchCategory}</td>
+                                      <td >{team.researchTopic}</td>
                                       <td >
-                                      Supervisor : {team.supervisor}<br/>
-                                      Co -Supervisor : {team.coSupervisor}<br/>
-                                      Panel : {team.panelId}<br/>
+                                      <p>Supervisor : <br/>{team.researchSupervisor}</p>
+                                      <p>Co -Supervisor : <br/>{team.researchCoSupervisor}</p>
+                                      <p>Panel : {team.panelId}</p>
                                       </td>
-                                      <td  class="text-center">Action</td>
+                                      <td  class="text-center">
+                                      <button type="button" class="btn btn-sm btn-success" onClick={()=>viewTopic(team.groupId)}>More</button>
+                                      </td>
                                   </tr>
                                 ))}
                                 </tbody>

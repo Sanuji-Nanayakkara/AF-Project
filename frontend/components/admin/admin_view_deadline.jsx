@@ -4,6 +4,7 @@ import Footer from '../footer/footer';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { saveAs } from "file-saver";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import '../src/style.css';
 
@@ -14,6 +15,7 @@ function ViewDeadLines() {
     const [title,setTitle] = useState("");
     const [imageSelected, setimageSelected] = useState("");
     const [deadLineDateTime, setDeadLineDateTime] = useState("");
+    const [submissionType, setSubmissionType] = useState("");
 
     useEffect(() => {
         axios.get("http://localhost:5000/deadLine/AllDeadLine")
@@ -30,7 +32,7 @@ function ViewDeadLines() {
         
         axios.post("https://api.cloudinary.com/v1_1/dnomnqmne/image/upload",formData).then((response)=>{
             const FileName =imageSelected.name;
-            const addDeadLine ={title, deadLineDateTime, description, FileName}
+            const addDeadLine ={title, deadLineDateTime, description, FileName,submissionType}
     
             axios.post("http://localhost:5000/deadLine/addDeadLine",addDeadLine).then(() =>{
     
@@ -88,7 +90,13 @@ function ViewDeadLines() {
         window.location.href = '/admin/OneDeadline?id='+id;
     }
 
-   
+
+    const download = (filename) => {
+        saveAs(
+          "https://res.cloudinary.com/dnomnqmne/image/upload/v1653733238/"+filename,
+          filename
+        );
+    };
     
     return (
     <div >
@@ -122,6 +130,16 @@ function ViewDeadLines() {
                                             <input type="text" class="form-control" onChange={(e) =>{
                                                 setTitle(e.target.value);
                                             }}/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Submission Type</label>
+                                            <select  class="form-control" onChange={(e) =>{
+                                                setSubmissionType(e.target.value);
+                                            }}> 
+                                                 <option>Select Submission Type</option>
+                                                 <option value="Document">Document</option>
+                                                 <option value="Presentation">Presentation</option>
+                                            </select>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Deadline Time And Date</label>
@@ -161,6 +179,7 @@ function ViewDeadLines() {
                                             <td  >Title</td>
                                             <td  >Dead Line Date & Time</td>
                                             <td  >File Download</td>
+                                            <td  >Submission Type</td>
                                             <td  >Status</td>
                                             <td   class="text-center">Action</td>
                                         </tr>
@@ -170,7 +189,8 @@ function ViewDeadLines() {
                                         <tr class="bg-white text-dark">
                                             <td>{DeadLine.title}</td>
                                             <td>{DeadLine.deadLineDateTime}</td>
-                                            <td><button type="button" class="btn btn-outline-dark btn-sm">Download</button></td>
+                                            <td><button type="button" class="btn btn-outline-dark btn-sm" onClick={()=> download(DeadLine.FileName)}>Download</button></td>
+                                            <td>{DeadLine.submissionType}</td>
                                             <td>{DeadLine.status}</td>
                                             <td class="text-center">
                                                 <button type="button"  class="btn btn-outline-danger btn-sm" onClick={()=> deleteDeadLine(DeadLine._id)}>Delete</button>&nbsp;&nbsp;
