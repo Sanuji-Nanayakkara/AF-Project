@@ -18,7 +18,7 @@
   "homepage": "https://github.com/IT19245584/2021S1_REG_WE_40-#readme",
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^34.1.0",
-    "@ckeditor/ckeditor5-react": "^5.0.2",
+    "@ckeditor/ckeditor5-react": "^5.1.0",
     "axios": "^0.27.2",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
