@@ -19,7 +19,7 @@
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^34.1.0",
     "@ckeditor/ckeditor5-react": "^5.0.2",
-    "axios": "^0.27.2",
+    "axios": "^1.6.4",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.24",
